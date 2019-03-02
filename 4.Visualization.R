@@ -240,7 +240,7 @@ sim.res <- ggplot(data = merged, aes(x = resolution, y = tau, fill = method:metr
   theme(legend.position = "none", text = element_text(size=8)) +
   scale_fill_manual(values = c("#FFDC54", "#ff9a8e", "#B28E00", "#e00000")) +
   scale_color_manual(values = c("#FFDC54", "#ff9a8e", "#B28E00", "#e00000")) +
-  scale_y_continuous(name = expression(paste("Kendall's ", tau)), limits = c(-1,1)) +
+  scale_y_continuous(name = expression(paste("Kendall's ", tau)), limits = c(-0.5,0.5)) +
   scale_x_discrete(name = "Resolution of timeseries (/generations)") +
   facet_wrap(~ metric * strength)
 
