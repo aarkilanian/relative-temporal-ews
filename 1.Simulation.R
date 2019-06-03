@@ -20,13 +20,13 @@ r <- 0.5       # Population growth rate
 K <- 100        # Carrying capacity
 h <- 1          # Half-saturation constant
 
-c.list.fold <- c(0, 0.03, 0.045, 0.07)            # Forcing parameter for fold
-c.list.trans <- c(0, 0.0015, 0.0025, 0.004)          # Forcing parameter for trans
+c.list.fold <- c(0, 0.015, 0.025, 0.035)            # Forcing parameter for fold
+c.list.trans <- c(0, 0.00085, 0.0010, 0.0015)          # Forcing parameter for trans
 
 # Replace these with fractions of generation time
 dt.list <- c(0.3, (1.4 * 0.25), (1.4 * 0.5), (1.4 * 1), (1.4 * 2)) # List of resolutions
 
-tmax <- 500   # Max length of time series
+tmax <- 1000   # Max length of time series
 tmin <- 0   # Min length of time series
 
 reps <- 100    # Number of repetitions to run, script can handle up to 100
