@@ -1,5 +1,5 @@
-# 1.
-# This script runs population simulations and generates the abundance data
+# 1b. (Supplementary)
+# This script runs modified population simulations and generates the abundance data
 # on which EWS analyses are performed.
 #
 # Code developed by Alex Arkilanian
@@ -7,7 +7,7 @@
 
 ## Starting stuff #####
 
-# Clean
+# Cleans
 rm(list = ls())
 
 # Packages
@@ -16,20 +16,20 @@ require(ggplot2)
 ## Inital parameters of model #####
 
 N.init <- 100   # Initial population size
-r <- 0.5       # Population growth rate
+r <- 1       # Population growth rate
 K <- 100        # Carrying capacity
 h <- 1          # Half-saturation constant
 
-c.list.fold <- c(0, 0.015, 0.025, 0.035)            # Forcing parameter for fold
-c.list.trans <- c(0, 0.00085, 0.0010, 0.0015)          # Forcing parameter for trans
+c.list.fold <- c(0, 0.03, 0.04, 0.05)           # Forcing parameter for fold
+c.list.trans <- c(0, 0.00125, 0.002, 0.0025)          # Forcing parameter for trans
 
 # Replace these with fractions of generation time
-dt.list <- c(0.3, (1.4 * 0.25), (1.4 * 0.5), (1.4 * 1), (1.4 * 2)) # List of resolutions
+dt.list <- c(0.025, (0.7 * 0.25), (0.7 * 0.5), (0.7 * 1), (0.7 * 2))  # List of resolutions
 
 tmax <- 1000   # Max length of time series
 tmin <- 0   # Min length of time series
 
-reps <- 100    # Number of repetitions to run, script can handle up to 100
+reps <- 50    # Number of repetitions to run, script can handle up to 100
 
 ## Initial dataframe and logical vectors #####
 
@@ -59,10 +59,10 @@ reInit.25 <- rep(c(TRUE, rep(FALSE, (p.list[2] - 1))), 9)
 
 # When to sample from high-res to low-res populations
 # Determined as when time point is multiple of resolution step
-TF.2 <- (time %% dt.list[4]) < 0.0000001
-TF.1 <- (time %% dt.list[4]) < 0.0000001
-TF.50 <- (time %% dt.list[3]) < 0.0000001
-TF.25 <- (time %% dt.list[2]) < 0.0000001
+TF.2 <- (time %% dt.list[5]) < 1e-3
+TF.1 <- (time %% dt.list[4]) < 1e-3
+TF.50 <- (time %% dt.list[3]) < 1e-3
+TF.25 <- (time %% dt.list[2]) < 1e-3
 
 ## Running model at dt = dt.list[1] and subsetting to low resolution #####
 
@@ -218,4 +218,4 @@ for (j in 1:(reps)) {
 save(  Ns.fold.2, Ns.fold.1, Ns.fold.50, Ns.fold.25,
        Ns.trans.2, Ns.trans.1, Ns.trans.50, Ns.trans.25,
        Ns.fold, Ns.trans,
-       file = "AllPop.RData")
+       file = "/home/alex/Documents/relative-temporal-ews/appendix/AllPop.RData")

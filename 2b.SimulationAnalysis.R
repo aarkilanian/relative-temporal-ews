@@ -1,4 +1,4 @@
-# 2.
+# 2b. (Supplementary)
 # This script sets up simulation data for analysis of the effect of length of 
 # sampling on EWS across all sampling resolutions for strongest and weakest
 # forcing levels
@@ -11,9 +11,9 @@ rm(list = ls())
 
 ##### Packages & Functions #####
 
-load("AllPop.RData")
+load("appendix/AllPop.RData")
 
-reps <- 100
+reps <- 50
 
 require(ggplot2)
 require(dplyr)
@@ -154,73 +154,73 @@ N.fold.50  <- Ns.fold.50[[i]]
 N.fold.25  <- Ns.fold.25[[i]]
 
 # Subset full resolution data by forcing (strong and weak) - new
-N.pop.none   <- N.fold[1:1667]
-N.pop.weak   <- N.fold[1668:3334]
-N.pop.medium <- N.fold[3335:5001]
-N.pop.strong <- N.fold[5002:6668]
+N.pop.none   <- N.fold[1:40001]
+N.pop.weak   <- N.fold[40002:80002]
+N.pop.medium <- N.fold[80003:120003]
+N.pop.strong <- N.fold[120004:160004]
 
 # Lower bounds
 lower.none      <- 1
-lower.weak      <- 1668
-lower.medium    <- 3335
-lower.strong    <- 5002
+lower.weak      <- 40002
+lower.medium    <- 80003
+lower.strong    <- 120004
 
 lower.2.none   <- 1
-lower.2.weak   <- ceiling(1668 * (0.025/(1.4 * 2))) + 1
-lower.2.medium <- ceiling(3335 * (0.025/(1.4 * 2))) + 2
-lower.2.strong <- ceiling(5002 * (0.025/(1.4 * 2))) + 3
+lower.2.weak   <- ceiling(40002 * (0.025/(0.7 * 2))) + 1
+lower.2.medium <- ceiling(80003 * (0.025/(0.7 * 2))) + 2
+lower.2.strong <- ceiling(120004 * (0.025/(0.7 * 2))) + 3
 
 lower.1.none   <- 1
-lower.1.weak   <- ceiling(1668 * (0.025/(1.4 * 1))) + 1
-lower.1.medium <- ceiling(3335 * (0.025/(1.4 * 1))) + 2
-lower.1.strong <- ceiling(5002 * (0.025/(1.4 * 1))) + 3
+lower.1.weak   <- ceiling(40002 * (0.025/(0.7 * 1))) + 1
+lower.1.medium <- ceiling(80003 * (0.025/(0.7 * 1))) + 2
+lower.1.strong <- ceiling(120004 * (0.025/(0.7 * 1))) + 3
 
 lower.50.none   <- 1
-lower.50.weak   <- ceiling(1668 * (0.025/(1.4 * 0.5))) + 1
-lower.50.medium <- ceiling(3335 * (0.025/(1.4 * 0.5))) + 2
-lower.50.strong <- ceiling(5002 * (0.025/(1.4 * 0.5))) + 3
+lower.50.weak   <- ceiling(40002 * (0.025/(0.7 * 0.5))) + 1
+lower.50.medium <- ceiling(80003 * (0.025/(0.7 * 0.5))) + 2
+lower.50.strong <- ceiling(120004 * (0.025/(0.7 * 0.5))) + 3
 
 lower.25.none   <- 1
-lower.25.weak   <- ceiling(1668 * (0.025/(1.4 * 0.25))) + 1
-lower.25.medium <- ceiling(3335 * (0.025/(1.4 * 0.25))) + 2
-lower.25.strong <- ceiling(5002 * (0.025/(1.4 * 0.25))) + 3
+lower.25.weak   <- ceiling(40003 * (0.025/(0.7 * 0.25))) + 1
+lower.25.medium <- ceiling(80003 * (0.025/(0.7 * 0.25))) + 2
+lower.25.strong <- ceiling(120004 * (0.025/(0.7 * 0.25))) + 3
 
 # Calculate upper bounds - new
-upper.none <- 1667
+upper.none <- 40001
 
-smoothy  <- gam_smoothing(1:1667, N.pop.weak, -1)$fit
-change   <- (smoothy[2:1667] - smoothy[1:1666]) / smoothy[2:1667]
-upper.weak <- which(change < -0.00001)[[1]]
+smoothy  <- gam_smoothing(1:40001, N.pop.weak, -1)$fit
+change   <- (smoothy[2:40001] - smoothy[1:40000]) / smoothy[2:40001]
+upper.weak <- which(change < -0.0005)[[1]]
 
-smoothy  <- gam_smoothing(1:1667, N.pop.medium, -1)$fit
-change   <- (smoothy[2:1667] - smoothy[1:1666]) / smoothy[2:1667]
-upper.medium <- which(change < -0.00001)[[1]]
+smoothy  <- gam_smoothing(1:40001, N.pop.medium, -1)$fit
+change   <- (smoothy[2:40001] - smoothy[1:40000]) / smoothy[2:40001]
+upper.medium <- which(change < -0.0005)[[1]]
 
-smoothy  <- gam_smoothing(1:1667, N.pop.strong, -1)$fit
-change   <- (smoothy[2:1667] - smoothy[1:1666]) / smoothy[2:1667]
-upper.strong <- which(change < -0.00001)[[1]]
+smoothy  <- gam_smoothing(1:40001, N.pop.strong, -1)$fit
+change   <- (smoothy[2:40001] - smoothy[1:40000]) / smoothy[2:40001]
+upper.strong <- which(change < -0.0005)[[1]]
 
 # Upper bounds - Conversion: convert to time points and then to corresponding res
 
-upper.2.none    <- floor(upper.none * 0.025 / (1.4 * 2))
-upper.2.weak    <- floor(upper.weak * 0.025 / (1.4 * 2)) + 1
-upper.2.medium  <- floor(upper.medium * 0.025 / (1.4 * 2)) + 2
-upper.2.strong  <- floor(upper.strong * 0.025 / (1.4 * 2)) + 3
+upper.2.none    <- floor(upper.none * 0.025 / (0.7 * 2))
+upper.2.weak    <- floor(upper.weak * 0.025 / (0.7 * 2)) + 1
+upper.2.medium  <- floor(upper.medium * 0.025 / (0.7 * 2)) + 2
+upper.2.strong  <- floor(upper.strong * 0.025 / (0.7 * 2)) + 3
 
-upper.1.none    <- floor(upper.none * 0.025 / (1.4 * 1))
-upper.1.weak    <- floor(upper.weak * 0.025 / (1.4 * 1)) + 1
-upper.1.medium  <- floor(upper.medium * 0.025 / (1.4 * 1)) + 2
-upper.1.strong  <- floor(upper.strong * 0.025 / (1.4 * 1)) + 3
+upper.1.none    <- floor(upper.none * 0.025 / (0.7 * 1))
+upper.1.weak    <- floor(upper.weak * 0.025 / (0.7 * 1)) + 1
+upper.1.medium  <- floor(upper.medium * 0.025 / (0.7 * 1)) + 2
+upper.1.strong  <- floor(upper.strong * 0.025 / (0.7 * 1)) + 3
 
-upper.50.none   <- floor(upper.none * 0.025 / (1.4 * 0.5))
-upper.50.weak   <- floor(upper.weak * 0.025 / (1.4 * 0.5)) + 1
-upper.50.medium <- floor(upper.medium * 0.025 / (1.4 * 0.5)) + 2
-upper.50.strong <- floor(upper.strong * 0.025 / (1.4 * 0.5)) + 3
+upper.50.none   <- floor(upper.none * 0.025 / (0.7 * 0.5))
+upper.50.weak   <- floor(upper.weak * 0.025 / (0.7 * 0.5)) + 1
+upper.50.medium <- floor(upper.medium * 0.025 / (0.7 * 0.5)) + 2
+upper.50.strong <- floor(upper.strong * 0.025 / (0.7 * 0.5)) + 3
 
-upper.25.none   <- floor(upper.none * 0.025 / (1.4 * 0.25))
-upper.25.weak   <- floor(upper.weak * 0.025 / (1.4 * 0.25)) + 1
-upper.25.medium <- floor(upper.medium * 0.025 / (1.4 * 0.25)) + 2
-upper.25.strong <- floor(upper.strong * 0.025 / (1.4 * 0.25)) + 3
+upper.25.none   <- floor(upper.none * 0.025 / (0.7 * 0.25))
+upper.25.weak   <- floor(upper.weak * 0.025 / (0.7 * 0.25)) + 1
+upper.25.medium <- floor(upper.medium * 0.025 / (0.7 * 0.25)) + 2
+upper.25.strong <- floor(upper.strong * 0.025 / (0.7 * 0.25)) + 3
 
 # Subset data
 none.2[[i]]    <- N.fold.2[lower.2.none:(lower.2.none + upper.2.none)]
@@ -465,7 +465,7 @@ save(res.strong.25.au, res.strong.50.au, res.strong.1.au, res.strong.2.au,
      res.medium.25.sd, res.medium.50.sd, res.medium.1.sd, res.medium.2.sd,
      res.weak.25.au, res.weak.50.au, res.weak.1.au, res.weak.2.au,
      res.weak.25.sd, res.weak.50.sd, res.weak.1.sd, res.weak.2.sd,
-     file = "analyzedFold.RData")
+     file = "appendix/analyzedFold.RData")
 
 ##### Trans models #####
 
@@ -511,24 +511,24 @@ for(i in 1:reps){
   lower.strong    <- 5002
   
   lower.2.none   <- 1
-  lower.2.weak   <- ceiling(1668 * (0.025/(1.4 * 2))) + 1
-  lower.2.medium <- ceiling(3335 * (0.025/(1.4 * 2))) + 2
-  lower.2.strong <- ceiling(5002 * (0.025/(1.4 * 2))) + 3
+  lower.2.weak   <- ceiling(1668 * (0.025/(0.7 * 2))) + 1
+  lower.2.medium <- ceiling(3335 * (0.025/(0.7 * 2))) + 2
+  lower.2.strong <- ceiling(5002 * (0.025/(0.7 * 2))) + 3
   
   lower.1.none   <- 1
-  lower.1.weak   <- ceiling(1668 * (0.025/(1.4 * 1))) + 1
-  lower.1.medium <- ceiling(3335 * (0.025/(1.4 * 1))) + 2
-  lower.1.strong <- ceiling(5002 * (0.025/(1.4 * 1))) + 3
+  lower.1.weak   <- ceiling(1668 * (0.025/(0.7 * 1))) + 1
+  lower.1.medium <- ceiling(3335 * (0.025/(0.7 * 1))) + 2
+  lower.1.strong <- ceiling(5002 * (0.025/(0.7 * 1))) + 3
   
   lower.50.none   <- 1
-  lower.50.weak   <- ceiling(1668 * (0.025/(1.4 * 0.5))) + 1
-  lower.50.medium <- ceiling(3335 * (0.025/(1.4 * 0.5))) + 2
-  lower.50.strong <- ceiling(5002 * (0.025/(1.4 * 0.5))) + 3
+  lower.50.weak   <- ceiling(1668 * (0.025/(0.7 * 0.5))) + 1
+  lower.50.medium <- ceiling(3335 * (0.025/(0.7 * 0.5))) + 2
+  lower.50.strong <- ceiling(5002 * (0.025/(0.7 * 0.5))) + 3
   
   lower.25.none   <- 1
-  lower.25.weak   <- ceiling(1668 * (0.025/(1.4 * 0.25))) + 1
-  lower.25.medium <- ceiling(3335 * (0.025/(1.4 * 0.25))) + 2
-  lower.25.strong <- ceiling(5002 * (0.025/(1.4 * 0.25))) + 3
+  lower.25.weak   <- ceiling(1668 * (0.025/(0.7 * 0.25))) + 1
+  lower.25.medium <- ceiling(3335 * (0.025/(0.7 * 0.25))) + 2
+  lower.25.strong <- ceiling(5002 * (0.025/(0.7 * 0.25))) + 3
   
   # Calculate upper bounds - new
   upper.none <- 1667
@@ -547,25 +547,25 @@ for(i in 1:reps){
   
   # Upper bounds - Conversion: convert to time points and then to corresponding res
   
-  upper.2.none    <- floor(upper.none * 0.025 / (1.4 * 2))
-  upper.2.weak    <- floor(upper.weak * 0.025 / (1.4 * 2)) + 1
-  upper.2.medium  <- floor(upper.medium * 0.025 / (1.4 * 2)) + 2
-  upper.2.strong  <- floor(upper.strong * 0.025 / (1.4 * 2)) + 3
+  upper.2.none    <- floor(upper.none * 0.025 / (0.7 * 2))
+  upper.2.weak    <- floor(upper.weak * 0.025 / (0.7 * 2)) + 1
+  upper.2.medium  <- floor(upper.medium * 0.025 / (0.7 * 2)) + 2
+  upper.2.strong  <- floor(upper.strong * 0.025 / (0.7 * 2)) + 3
   
-  upper.1.none    <- floor(upper.none * 0.025 / (1.4 * 1))
-  upper.1.weak    <- floor(upper.weak * 0.025 / (1.4 * 1)) + 1
-  upper.1.medium  <- floor(upper.medium * 0.025 / (1.4 * 1)) + 2
-  upper.1.strong  <- floor(upper.strong * 0.025 / (1.4 * 1)) + 3
+  upper.1.none    <- floor(upper.none * 0.025 / (0.7 * 1))
+  upper.1.weak    <- floor(upper.weak * 0.025 / (0.7 * 1)) + 1
+  upper.1.medium  <- floor(upper.medium * 0.025 / (0.7 * 1)) + 2
+  upper.1.strong  <- floor(upper.strong * 0.025 / (0.7 * 1)) + 3
   
-  upper.50.none   <- floor(upper.none * 0.025 / (1.4 * 0.5))
-  upper.50.weak   <- floor(upper.weak * 0.025 / (1.4 * 0.5)) + 1
-  upper.50.medium <- floor(upper.medium * 0.025 / (1.4 * 0.5)) + 2
-  upper.50.strong <- floor(upper.strong * 0.025 / (1.4 * 0.5)) + 3
+  upper.50.none   <- floor(upper.none * 0.025 / (0.7 * 0.5))
+  upper.50.weak   <- floor(upper.weak * 0.025 / (0.7 * 0.5)) + 1
+  upper.50.medium <- floor(upper.medium * 0.025 / (0.7 * 0.5)) + 2
+  upper.50.strong <- floor(upper.strong * 0.025 / (0.7 * 0.5)) + 3
   
-  upper.25.none   <- floor(upper.none * 0.025 / (1.4 * 0.25))
-  upper.25.weak   <- floor(upper.weak * 0.025 / (1.4 * 0.25)) + 1
-  upper.25.medium <- floor(upper.medium * 0.025 / (1.4 * 0.25)) + 2
-  upper.25.strong <- floor(upper.strong * 0.025 / (1.4 * 0.25)) + 3
+  upper.25.none   <- floor(upper.none * 0.025 / (0.7 * 0.25))
+  upper.25.weak   <- floor(upper.weak * 0.025 / (0.7 * 0.25)) + 1
+  upper.25.medium <- floor(upper.medium * 0.025 / (0.7 * 0.25)) + 2
+  upper.25.strong <- floor(upper.strong * 0.025 / (0.7 * 0.25)) + 3
   
   # Subset data
   none.2[[i]]    <- N.trans.2[lower.2.none:(lower.2.none + upper.2.none)]

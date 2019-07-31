@@ -236,8 +236,8 @@ sim.res <- ggplot(data = merged, aes(x = resolution, y = tau, fill = method:metr
   geom_point(aes(col = method:metric), position = position_jitterdodge(dodge.width = 0.7), alpha = 0.4, size = 0.2) +
   geom_boxplot(outlier.shape = NA, alpha = 0.5, lwd = 0.2) +
   theme_light() +
-  theme(strip.background = element_blank(), legend.position = "none", panel.grid.major = element_blank(), panel.grid.minor = element_blank(), text = element_text(size=8)) +
-  theme(legend.position = "none", text = element_text(size=8)) +
+  theme(strip.background = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), text = element_text(size=8)) +
+  theme(text = element_text(size=8)) +
   scale_fill_manual(values = c("#FFDC54", "#ff9a8e", "#B28E00", "#e00000")) +
   scale_color_manual(values = c("#FFDC54", "#ff9a8e", "#B28E00", "#e00000")) +
   scale_y_continuous(name = expression(paste("Kendall's ", tau)), limits = c(-0.5,0.5)) +
@@ -354,7 +354,7 @@ mic.res <- ggplot(data = biggy.summary2, aes(y = tau, x = resolution, fill = inc
   scale_fill_manual(values = c("#35A69C", "#AB00FF", "#1B544F", "#39004A")) +
   scale_colour_manual(values = c("#35A69C", "#AB00FF", "#1B544F", "#39004A")) +
   scale_y_continuous(limits = c(-1,1), name = expression(paste("Kendall's ", tau))) +
-  scale_x_discrete(name = "Resolution of timeseries (/generations)", labels = c("1","0.5")) +
+  scale_x_discrete(limits = rev(levels(biggy.summary2$resolution)), name = "Resolution of timeseries (/generations)", labels = c("0.5", "1")) +
   geom_point(aes(col = inclusion:metric), alpha = 0.5, position = position_jitterdodge(dodge.width = 0.7), size = 0.2) +
   geom_boxplot(outlier.shape = NA, alpha = 0.5, lwd = 0.2) +
   facet_wrap(~ metric*strength)
