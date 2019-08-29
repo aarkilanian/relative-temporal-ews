@@ -24,7 +24,7 @@ c.list.fold <- c(0, 0.015, 0.025, 0.035)            # Forcing parameter for fold
 c.list.trans <- c(0, 0.00085, 0.0010, 0.0015)          # Forcing parameter for trans
 
 # Replace these with fractions of generation time
-dt.list <- c(0.3, (1.4 * 0.25), (1.4 * 0.5), (1.4 * 1), (1.4 * 2)) # List of resolutions
+dt.list <- c(0.05, (1.4 * 0.25), (1.4 * 0.5), (1.4 * 1), (1.4 * 2)) # List of resolutions
 
 tmax <- 1000   # Max length of time series
 tmin <- 0   # Min length of time series
@@ -59,10 +59,10 @@ reInit.25 <- rep(c(TRUE, rep(FALSE, (p.list[2] - 1))), 9)
 
 # When to sample from high-res to low-res populations
 # Determined as when time point is multiple of resolution step
-TF.2 <- (time %% dt.list[4]) < 0.0000001
-TF.1 <- (time %% dt.list[4]) < 0.0000001
-TF.50 <- (time %% dt.list[3]) < 0.0000001
-TF.25 <- (time %% dt.list[2]) < 0.0000001
+TF.2 <- rep(c(TRUE, rep(FALSE, 55)), ceiling(length(time)/56))
+TF.1 <- rep(c(TRUE, rep(FALSE, 27)), ceiling(length(time)/28))
+TF.50 <- rep(c(TRUE, rep(FALSE, 13)), ceiling(length(time)/14))
+TF.25 <- rep(c(TRUE, rep(FALSE, 6)), ceiling(length(time)/7))
 
 ## Running model at dt = dt.list[1] and subsetting to low resolution #####
 
