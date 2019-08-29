@@ -62,7 +62,7 @@ for(i in matrix.list){
                  data.frame(
                    strength = rep(unlist(strsplit(names(matrix.list)[j], '.', fixed = T))[2], times = length(i)),
                    resolution = rep(unlist(strsplit(names(matrix.list)[j], '.', fixed = T))[3], times = length(i)),
-                   length = rep((length(i[1,]) + 5):6, each = 100),
+                     length = rep((length(i[1,]) + 3):4, each = 100),
                    metric = rep(unlist(strsplit(names(matrix.list)[j], '.', fixed = T))[4], times = length(i)),
                    tau = taus
                  )
