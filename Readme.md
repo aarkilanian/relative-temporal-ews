@@ -1,4 +1,7 @@
-## Readme text for the codes and data.
+## Readme text for the codes and data. 
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3688736.svg)](https://doi.org/10.5281/zenodo.3688736)
+
 
 1. `Simulation_Code.R` script is the main R script that simulates population collapses going through fold and transcritical bifurcation following the two equations in the main-text.
 
