@@ -3,7 +3,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3688736.svg)](https://doi.org/10.5281/zenodo.3688736)
 
 
-1. `Simulation_Code.R` script is the main R script that simulates population collapses going through fold and transcritical bifurcation following the two equations in the main-text.
+1. `Simulation_Code.R` script is the main R script that simulates population collapses going through fold and transcritical bifurcation following the two equations in the main text.
 
 2. `Simulation_analyses_code.R` is the script that categorizes the data based on sampling lenghts, resolutions, different forcing strengths, and for different bifurcation types.
 
